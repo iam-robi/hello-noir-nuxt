@@ -55,7 +55,7 @@ export default defineNuxtConfig({
         ],
       },
     },
-    plugins: [crossOriginIsolation()],
+    // plugins: [crossOriginIsolation()],
     resolve: {
       alias: { ...nodeStdlibBrowser },
     },

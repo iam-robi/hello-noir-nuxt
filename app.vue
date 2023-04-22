@@ -1,10 +1,8 @@
 <template>
   <div class="flex flex-col h-screen z-10">
     <div class="p-4 @lex gap-4">
-      <button @click="onConnect" class="btn">
-        Connect {{ wallet.wallet.status }}
-      </button>
-
+      <button @click="onConnect" class="btn">Connect</button>
+      {{ wallet.wallet.status }} - {{ address }}
       <vd-board :connectors="connectors" dark>
         <!-- <template #loading>
           <div v-if="wallet.wallet.status === 'loading'">loading...</div>
@@ -65,6 +63,8 @@ import {
 
 const wallet = useWallet();
 const board = useBoard();
+const { address, chainId, signer } = useEthers();
+
 // board.open();
 const onConnect = function () {
   console.log("connect");
