@@ -1,0 +1,39 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.21.3",
+    "@graphql-codegen/cli": "^3.2.2",
+    "@nuxtjs/color-mode": "^3.2.0",
+    "@nuxtjs/tailwindcss": "^6.6.5",
+    "@typescript-eslint/eslint-plugin": "^5.57.0",
+    "@typescript-eslint/parser": "^5.57.0",
+    "@vueuse/nuxt": "^9.13.0",
+    "daisyui": "^2.51.5",
+    "eslint": "^8.37.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-vue": "^9.10.0",
+    "nuxt": "^3.3.2",
+    "prettier": "2.8.7",
+    "typescript": "^5.0.3"
+  },
+  "dependencies": {
+    "@graphql-codegen/client-preset": "^2.1.1",
+    "@phosphor-icons/vue": "^2.0.1",
+    "@pinia/nuxt": "^0.4.7",
+    "@vueuse/core": "^9.13.0",
+    "graphql": "^16.6.0",
+    "js-sha3": "^0.8.0",
+    "nuxt-graphql-client": "^0.2.27",
+    "snarkyjs": "^0.9.5",
+    "tailwindcss-aspect-ratio": "^3.0.0",
+    "vite-plugin-cross-origin-isolation": "^0.1.6"
+  }
+}
