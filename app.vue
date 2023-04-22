@@ -1,7 +1,13 @@
 <template>
   <div class="flex flex-col h-screen z-10">
     <div class="p-4 @lex gap-4">
-      <button class="btn">Connect</button>
+      <button @click="onConnect" class="btn">Connect</button>
+      <vd-board :connectors="connectors" dark>
+        <template #loading>
+          <div v-if="wallet.wallet.status === 'loading'">loading...</div>
+        </template>
+      </vd-board>
+
       <select class="select w-full max-w-xs" v-model="colorMode.preference">
         <option disabled selected>Theme</option>
         <option v-for="theme of themes" :key="theme">{{ theme }}</option>
@@ -44,6 +50,41 @@
 <script setup lang="ts">
 import { useProof } from "./store/proof/proof.index";
 import { PhSignature, PhFileSearch } from "@phosphor-icons/vue";
+import {
+  MetaMaskConnector,
+  WalletConnectConnector,
+  CoinbaseWalletConnector,
+  SafeConnector,
+  useBoard,
+  useEthers,
+  useWallet,
+} from "vue-dapp";
+
+const wallet = useWallet();
+const board = useBoard();
+
+const onConnect = function () {
+  console.log("connect");
+  // board.open();
+};
+
+const connectors = [
+  new MetaMaskConnector({
+    appUrl: "http://localhost:3000",
+  }),
+  new WalletConnectConnector({
+    qrcode: true,
+    rpc: {
+      1: `https://eth.llamarpc.com`,
+      5: `https://eth-goerli.g.alchemy.com/v2/mb4872MrLwfUdJfLcYfkXKhvsZo3PJsh`,
+    },
+  }),
+  new CoinbaseWalletConnector({
+    appName: "Vue Dapp",
+    jsonRpcUrl: `https://eth-goerli.g.alchemy.com/v2/mb4872MrLwfUdJfLcYfkXKhvsZo3PJsh`,
+  }),
+  new SafeConnector(),
+];
 const classificationStore = useProof();
 // a computed ref
 
