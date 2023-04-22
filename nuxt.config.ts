@@ -43,7 +43,7 @@ export default defineNuxtConfig({
   },
   vite: {
     build: {
-      target: "es2020",
+      target: "esnext",
       commonjsOptions: {
         transformMixedEsModules: true,
       },
@@ -76,8 +76,7 @@ export default defineNuxtConfig({
     },
     optimizeDeps: {
       esbuildOptions: {
-        target: "es2020",
-        supported: { bigint: true },
+        target: "esnext",
       },
       include:
         process.env.NODE_ENV === "development"
