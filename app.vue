@@ -1,11 +1,14 @@
 <template>
   <div class="flex flex-col h-screen z-10">
     <div class="p-4 @lex gap-4">
-      <button @click="onConnect" class="btn">Connect</button>
+      <button @click="onConnect" class="btn">
+        Connect {{ wallet.wallet.status }}
+      </button>
+
       <vd-board :connectors="connectors" dark>
-        <template #loading>
+        <!-- <template #loading>
           <div v-if="wallet.wallet.status === 'loading'">loading...</div>
-        </template>
+        </template> -->
       </vd-board>
 
       <select class="select w-full max-w-xs" v-model="colorMode.preference">
@@ -62,10 +65,10 @@ import {
 
 const wallet = useWallet();
 const board = useBoard();
-
+// board.open();
 const onConnect = function () {
   console.log("connect");
-  // board.open();
+  board.open();
 };
 
 const connectors = [
@@ -83,7 +86,7 @@ const connectors = [
     appName: "Vue Dapp",
     jsonRpcUrl: `https://eth-goerli.g.alchemy.com/v2/mb4872MrLwfUdJfLcYfkXKhvsZo3PJsh`,
   }),
-  new SafeConnector(),
+  // new SafeConnector(),
 ];
 const classificationStore = useProof();
 // a computed ref
