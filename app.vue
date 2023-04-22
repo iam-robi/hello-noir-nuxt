@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col h-screen z-10">
     <div class="p-4 @lex gap-4">
-      <!-- <button class="btn">OIP Classifier</button> -->
+      <button class="btn">Connect</button>
       <select class="select w-full max-w-xs" v-model="colorMode.preference">
         <option disabled selected>Theme</option>
         <option v-for="theme of themes" :key="theme">{{ theme }}</option>
@@ -42,9 +42,9 @@
 </template>
 
 <script setup lang="ts">
-import { useClassification } from "./store/classification/classification.index";
+import { useProof } from "./store/proof/proof.index";
 import { PhSignature, PhFileSearch } from "@phosphor-icons/vue";
-const classificationStore = useClassification();
+const classificationStore = useProof();
 // a computed ref
 
 const colorMode = useColorMode();
