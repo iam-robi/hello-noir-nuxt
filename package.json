@@ -30,9 +30,7 @@
     "@pinia/nuxt": "^0.4.7",
     "@vueuse/core": "^9.13.0",
     "graphql": "^16.6.0",
-    "js-sha3": "^0.8.0",
     "nuxt-graphql-client": "^0.2.27",
-    "snarkyjs": "^0.9.5",
     "tailwindcss-aspect-ratio": "^3.0.0",
     "vite-plugin-cross-origin-isolation": "^0.1.6"
   }
