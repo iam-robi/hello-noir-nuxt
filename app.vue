@@ -42,6 +42,7 @@
             class="input input-primary"
             placeholder="Enter input Y"
           />
+          <button @click="executeProcedure" class="btn">Execute</button>
         </div>
       </div>
     </div>
@@ -51,11 +52,11 @@
 <script setup lang="ts">
 import { useProof } from "./store/proof/proof.index";
 import { PhSignature, PhFileSearch } from "@phosphor-icons/vue";
+import { getAcir } from "~/utils/proofs";
 import {
   MetaMaskConnector,
   WalletConnectConnector,
   CoinbaseWalletConnector,
-  SafeConnector,
   useBoard,
   useEthers,
   useWallet,
@@ -124,4 +125,44 @@ const themes = [
   "coffee",
   "winter",
 ];
+
+import initNoirWasm, {
+  acir_from_bytes,
+  acir_read_bytes,
+} from "@noir-lang/noir_wasm";
+import initBackend, * as aztec_backend from "@noir-lang/aztec_backend";
+import {
+  create_proof,
+  verify_proof,
+  setup_generic_prover_and_verifier,
+  BarretenbergWasm,
+} from "@noir-lang/barretenberg";
+
+let inputs = {
+  x: 3,
+  y: 4,
+};
+const PROOF_TO_FILES = {
+  connectivity: "connectivityAcir.buf",
+};
+
+export type ConnectivityABI = {
+  x: number;
+  y: number;
+};
+
+type Proof = "connectivity";
+const executeProcedure = async function () {
+  // await initNoirWasm();
+  const acir = await getAcir();
+  // const res = await fetch("connectivitryAcir.buf");
+  // const buffer = await res.arrayBuffer();
+  // const bytes = new Uint8Array(buffer);
+
+  // const acir = acir_read_bytes(bytes);
+  // // const acir = acir_read_bytes(bytes);
+  // // console.log(acir);
+  // console.log("executeProcedure");
+  //board.open();
+};
 </script>

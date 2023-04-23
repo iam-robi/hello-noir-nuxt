@@ -1,4 +1,4 @@
-import crossOriginIsolation from "vite-plugin-cross-origin-isolation";
+//import crossOriginIsolation from "vite-plugin-cross-origin-isolation";
 import inject from "@rollup/plugin-inject";
 import nodeStdlibBrowser from "node-stdlib-browser";
 import rollupPolyfillNode from "rollup-plugin-polyfill-node";
@@ -21,14 +21,16 @@ export default defineNuxtConfig({
   build: {
     transpile:
       process.env.NODE_ENV === "production"
-        ? ["vueuc", "@css-render/vue3-ssr", "@juggle/resize-observer"]
-        : ["@juggle/resize-observer"],
-  },
-  eslint: {
-    /* module options */
+        ? [
+            "vueuc",
+            "@css-render/vue3-ssr",
+            "@juggle/resize-observer",
+            "@noir-lang/noir_wasm",
+          ]
+        : ["@juggle/resize-observer", "@noir-lang/noir_wasm"],
   },
   runtimeConfig: {
-    privateKey: process.env.MINA_PRIVATE_KEY,
+    privateKey: process.env.HELLO_CONTRACT,
   },
   colorMode: {
     preference: "system", // default theme
@@ -43,6 +45,14 @@ export default defineNuxtConfig({
     preferGETQueries: false,
   },
   vite: {
+    ssr: {
+      noExternal: [
+        // ...
+        "@noir-lang/aztec_backend",
+        "@noir-lang/barretenberg",
+        "@noir-lang/noir_wasm",
+      ],
+    },
     build: {
       target: "esnext",
       commonjsOptions: {

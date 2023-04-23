@@ -11,6 +11,7 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.21.3",
     "@graphql-codegen/cli": "^3.2.2",
+    "@noir-lang/noir-source-resolver": "^1.1.2",
     "@nuxtjs/color-mode": "^3.2.0",
     "@nuxtjs/tailwindcss": "^6.6.5",
     "@rollup/plugin-inject": "^5.0.2",
@@ -30,6 +31,9 @@
   },
   "dependencies": {
     "@graphql-codegen/client-preset": "^2.1.1",
+    "@noir-lang/aztec_backend": "^0.12.0",
+    "@noir-lang/barretenberg": "github:noir-lang/barretenberg#39a1547875f941ef6640217a42d8f34972425c97",
+    "@noir-lang/noir_wasm": "^0.4.1-3d2233d",
     "@phosphor-icons/vue": "^2.0.1",
     "@pinia/nuxt": "^0.4.7",
     "@vueuse/core": "^9.13.0",
