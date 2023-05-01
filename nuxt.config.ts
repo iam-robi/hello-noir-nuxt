@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "@nuxtjs/color-mode",
     "@vueuse/nuxt",
+    "@nuxtjs/partytown",
     [
       "@pinia/nuxt",
       {
