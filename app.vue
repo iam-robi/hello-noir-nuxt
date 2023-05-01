@@ -129,8 +129,10 @@ const themes = [
 import initNoirWasm, {
   acir_from_bytes,
   acir_read_bytes,
+  compile,
 } from "@noir-lang/noir_wasm";
-import initBackend, * as aztec_backend from "@noir-lang/aztec_backend";
+import initialiseAztecBackend from "@noir-lang/aztec_backend";
+// import initialiseAztecBackend from "@noir-lang/aztec_backend/aztec_backend_bg.wasm";
 import {
   create_proof,
   verify_proof,
@@ -152,13 +154,55 @@ export type ConnectivityABI = {
 };
 
 type Proof = "connectivity";
+import { initialiseResolver } from "@noir-lang/noir-source-resolver";
+
 const executeProcedure = async function () {
-  // await initNoirWasm();
-  const acir = await getAcir();
-  // const res = await fetch("connectivitryAcir.buf");
+  await initNoirWasm();
+  let files;
+  await $fetch("/api/listdirectory", {
+    method: "POST",
+  }).then((res) => {
+    files = res;
+  });
+  console.log("files", files);
+
+  let compiled_noir;
+  const code = await $fetch("/api/readcircuitfile", {
+    method: "POST",
+    body: {
+      filename: "main.nr",
+    },
+  });
+
+  initialiseResolver((id: any) => {
+    return code;
+  });
+
+  let circuit, abi;
+  try {
+    const compiled_noir = compile({});
+    console.log("compiled_noir", compiled_noir);
+    circuit = compiled_noir.circuit;
+    abi = compiled_noir.abi;
+    //return compiled_noir;
+  } catch (e) {
+    console.log("Error while compiling:", e);
+  }
+
+  // const { circuit, abi } = compiled_noir;
+
+  console.log("circuit", circuit);
+  await initialiseAztecBackend();
+  // initialiseResolver((id: any) => {
+  //   console.log(id);
+  //   return code[id];
+  // });
+
+  //const acir = await getAcir();
+  // const res = await fetch("connectivityAcir.buf");
   // const buffer = await res.arrayBuffer();
   // const bytes = new Uint8Array(buffer);
-
+  // console.log(bytes);
   // const acir = acir_read_bytes(bytes);
   // // const acir = acir_read_bytes(bytes);
   // // console.log(acir);

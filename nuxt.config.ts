@@ -2,9 +2,12 @@
 import inject from "@rollup/plugin-inject";
 import nodeStdlibBrowser from "node-stdlib-browser";
 import rollupPolyfillNode from "rollup-plugin-polyfill-node";
+import wasm from "vite-plugin-wasm";
+import topLevelAwait from "vite-plugin-top-level-await";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  nitro: { experimental: { wasm: true } },
   modules: [
     "nuxt-graphql-client",
     "@nuxtjs/tailwindcss",
@@ -53,6 +56,7 @@ export default defineNuxtConfig({
         "@noir-lang/noir_wasm",
       ],
     },
+    plugins: [wasm(), topLevelAwait()],
     build: {
       target: "esnext",
       commonjsOptions: {
@@ -62,6 +66,8 @@ export default defineNuxtConfig({
         plugins: [
           // Enable rollup polyfills plugin used in production bundling, refer to https://stackoverflow.com/a/72440811/10752354
           rollupPolyfillNode(),
+          wasm(),
+          topLevelAwait(),
         ],
       },
     },
@@ -79,7 +85,12 @@ export default defineNuxtConfig({
       },
       include:
         process.env.NODE_ENV === "development"
-          ? ["naive-ui", "vueuc", "date-fns-tz/esm/formatInTimeZone"]
+          ? [
+              "naive-ui",
+              "vueuc",
+              "date-fns-tz/esm/formatInTimeZone",
+              "@noir-lang/aztec_backend",
+            ]
           : [],
     },
   },
