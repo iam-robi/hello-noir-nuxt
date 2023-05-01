@@ -22,7 +22,7 @@
             placeholder="Enter input Y"
           />
           <button @click="executeProcedure" class="btn">Execute</button>
-          <div>Proof (random string for now) {{ randomID }}</div>
+          <div>Proof (random string for now) {{ proof }}</div>
         </div>
       </div>
     </div>
@@ -38,25 +38,25 @@ import initialiseAztecBackend from "@noir-lang/aztec_backend";
 import { initialiseResolver } from "@noir-lang/noir-source-resolver";
 
 let worker: Worker | null = null;
-const initializeWorker = () => {
-  worker = new Worker("/random-id.worker.js");
+const proof = ref(null);
+
+const initializeProofWorker = () => {
+  worker = new Worker("/generateproof.worker.js");
 
   worker.addEventListener("message", (event) => {
-    randomID.value = event.data;
+    proof.value = event.data;
   });
 
   worker.postMessage("generate");
 };
-const regenerateRandomID = () => {
+const generateproof = () => {
   // Terminate the existing worker and create a new one
 
   if (worker) {
     worker.terminate();
   }
-  initializeWorker();
+  initializeProofWorker();
 };
-
-const randomID = ref(null);
 
 onBeforeUnmount(() => {
   if (worker) {
@@ -70,7 +70,7 @@ const fetchData = async () => {
 // ...
 const { data, error } = useAsyncData("fetch-data", fetchData, {
   lazy: true,
-  watch: [randomID],
+  watch: [proof],
   immediate: false,
 });
 // ...
@@ -113,6 +113,6 @@ const executeProcedure = async function () {
   //TODO: see why it's failing
   //await initialiseAztecBackend();
 
-  initializeWorker();
+  initializeProofWorker();
 };
 </script>
