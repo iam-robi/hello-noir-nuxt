@@ -49,6 +49,7 @@ export default defineNuxtConfig({
     preferGETQueries: false,
   },
   vite: {
+    worker: { plugins: [wasm()] },
     ssr: {
       noExternal: [
         // ...
@@ -57,7 +58,7 @@ export default defineNuxtConfig({
         "@noir-lang/noir_wasm",
       ],
     },
-    plugins: [wasm(), topLevelAwait()],
+    plugins: [wasm(), topLevelAwait(), topLevelAwait()],
     build: {
       target: "esnext",
       commonjsOptions: {

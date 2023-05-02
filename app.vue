@@ -41,21 +41,15 @@ let worker: Worker | null = null;
 const proof = ref(null);
 
 const initializeProofWorker = () => {
-  worker = new Worker("/generateproof.worker.js");
+  worker = new Worker(new URL("/assets/workers/prover.ts", import.meta.url), {
+    type: "module",
+  });
 
   worker.addEventListener("message", (event) => {
     proof.value = event.data;
   });
 
   worker.postMessage("generate");
-};
-const generateproof = () => {
-  // Terminate the existing worker and create a new one
-
-  if (worker) {
-    worker.terminate();
-  }
-  initializeProofWorker();
 };
 
 onBeforeUnmount(() => {
@@ -65,6 +59,7 @@ onBeforeUnmount(() => {
 });
 const fetchData = async () => {
   // Use the randomID.value in your application logic
+  console.log("fetchData", proof.value);
 };
 
 // ...
